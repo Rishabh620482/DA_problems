@@ -1,0 +1,53 @@
+public class RemoveDuplicates {
+    public static void sortArray(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static int[] removeDuplicates(int[] arr) {
+        sortArray(arr);
+        int n = arr.length;
+        if (n == 0 || n == 1) {
+            return arr;
+        }
+        
+        int[] temp = new int[n];
+        int j = 0;
+        
+        for (int i = 0; i < n - 1; i++) {
+            if (arr[i] != arr[i + 1]) {
+                temp[j++] = arr[i];
+            }
+        }
+        temp[j++] = arr[n - 1];
+        
+        int[] result = new int[j];
+        for (int i = 0; i < j; i++) {
+            result[i] = temp[i];
+        }
+        return result;
+    }
+    
+    public static void printArray(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        int[] array = { 34, 7, 23, 32, 5, 62, 7, 23, 34 };
+        int[] uniqueArray = removeDuplicates(array);
+        
+        System.out.print("Array after removing duplicates: ");
+        printArray(uniqueArray);
+    }
+}
