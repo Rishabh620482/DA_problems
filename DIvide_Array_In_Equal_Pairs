@@ -1,0 +1,26 @@
+import java.util.*;
+public class EqualPairs {
+    public static boolean canBeDividedIntoPairs(int[] arr) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+
+        for (int num : arr) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        for (int freq : freqMap.values()) {
+            if (freq % 2 != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        int[] arr = {2, 3, 4, 3, 4, 2};
+        if (arr.length % 2 != 0) {
+            System.out.println("Array cannot be divided into pairs (odd length).");
+        } else if (canBeDividedIntoPairs(arr)) {
+            System.out.println("Array can be divided into equal pairs.");
+        } else {
+            System.out.println("Array cannot be divided into equal pairs.");
+        }
+    }
+}
