@@ -1,0 +1,42 @@
+public class SmallestDivisorGivenThreshold {
+    public static int getMax(int[] nums) {
+        int max = nums[0];
+        for (int num : nums) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max;
+    }
+
+    public static int smallestDivisor(int[] nums, int threshold) {
+        int left = 1, right = getMax(nums); // Set initial bounds for binary search
+
+        while (left < right) {
+            int mid = (left + right) >> 1; // mid = (left + right) / 2
+            int sum = 0;
+
+            // Calculate the sum of ceiling division for current mid (divisor)
+            for (int num : nums) {
+                sum += (num + mid - 1) / mid; // Rounds up division
+            }
+
+            // Adjust search range based on threshold comparison
+            if (sum <= threshold) {
+                right = mid; // Try smaller divisor
+            } else {
+                left = mid + 1; // Try larger divisor
+            }
+        }
+
+        return left;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 5, 9};
+        int threshold = 6;
+
+        int result = smallestDivisor(nums, threshold);
+        System.out.println("Smallest Divisor: " + result);
+    }
+}
